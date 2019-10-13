@@ -1,0 +1,66 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd
+  	http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   ">
+
+	<context:component-scan
+		base-package="com.janhavi.controller" />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/frontend1/"  
+	cache-period="31556926"/>
+	
+	<mvc:annotation-driven />
+	
+	<bean id="userDao" class="com.janhavi.dao.UserDaoImpl" />
+	<bean id="productDao" class="com.janhavi.dao.ProductDaoImpl" />
+	<bean id="cartDao" class="com.janhavi.dao.CartDaoImpl" />	
+	<bean id="orderDao" class="com.janhavi.dao.OrderDaoImpl" />
+	<bean id="invoiceDao" class="com.janhavi.dao.InvoiceDaoImpl" />	
+	<bean id="proposalDao" class="com.janhavi.dao.ProposalDaoImpl" />	
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/electronics" />
+		<property name="username" value="root" />
+		<property name="password" value="17075061" />
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="khushiagrawal99@gmail.com" />
+        <property name="password" value="rockingmona" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+     
+</beans>
+
+
+
