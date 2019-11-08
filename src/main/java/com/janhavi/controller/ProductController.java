@@ -73,31 +73,11 @@ public class ProductController{
 			mv.addObject("msg", "Category added.");
 		}
 		else {
-			mv.addObject("msg", "Error");
+			mv.addObject("msg", "Category already exists");
 		}
 
 		return mv;
 
 	}
 	
-	@RequestMapping(value = "/product/proposal", method = RequestMethod.POST)
-	public ModelAndView addProposal(@RequestParam("productid") int productid,
-            @RequestParam("price") int price) {
-
-		ModelAndView mv = new ModelAndView("product");
-		mv.addObject("products", productDao.findAll());
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		int counter = productDao.addProposal(userDetail.getUsername(),productid, price);
-
-		if (counter > 0) {
-			mv.addObject("mesg", "Proposal added.");
-		}
-		else {
-			mv.addObject("mesg", "No such product exists or proposal already exists");
-		}
-
-		return mv;
-
-	}
 }

@@ -6,18 +6,18 @@ public class Product{
 	private String brand;
 	private int price;
 	private String category;
-	private int quantity;
+	private String photo;
 	
 	
 	public Product() {}
-	public Product( int productid, String name, String brand, int price, String category, int quantity) {
+	public Product( int productid, String name, String brand, int price, String category, int quantity, String photo) {
 		super();
 		this.productid = productid;
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
 		this.category = category;
-		this.quantity = quantity;
+		this.photo = photo;
 	}
 	
 	public int getProductid() {
@@ -60,11 +60,11 @@ public class Product{
 		this.category = category;
 	}
 	
-	public int getQuantity() {
-		return quantity;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 }

@@ -8,4 +8,5 @@ public interface OrderDao{
 	public int placeOrder(String customerid);
 	public List<Order> getOrders(final String customerid);
 	public List<Order> getAllOrders();
+	public List<Order> getOrder(final int invoiceid);
 }

@@ -37,15 +37,21 @@ public class OrderDaoImpl implements OrderDao {
 		
 		int id = getUniqueInvoiceid();
 		try {
-		String sql = "INSERT INTO invoice( id, paymentmethod) VALUES(?, ?)";
-		 jdbcTemplate.update(sql, new Object[] { id,"Cash On Delivery" });
-		String sql1 = "INSERT INTO placedBy( orderid, customerid) VALUES(?, ?)";
-		 jdbcTemplate.update(sql1, new Object[] { id,customerid });
+		
+		//String sql1 = "INSERT INTO placedBy( orderid, customerid) VALUES(?, ?)";
+		 //jdbcTemplate.update(sql1, new Object[] { id,customerid });
 		String sql2 = addOrder(customerid, id);
+		if(sql2 != null) {
+		String sql = "INSERT INTO invoice( id, paymentmethod, customerid) VALUES(?, ?, ?)";
+		jdbcTemplate.update(sql, new Object[] { id,"Payment on receipt", customerid });
 		jdbcTemplate.update(sql2);	
 		String sql3 = "delete from cart where customerid=?";
 		jdbcTemplate.update(sql3, new Object[] { customerid });
 		return 1;
+		}
+		else {
+			return 0;
+		}
 		}
 		catch(Exception e)
 		{
@@ -73,10 +79,9 @@ public class OrderDaoImpl implements OrderDao {
 		                    f=1;
 		                }
 		                if(f==1)
-		                	s = s.substring(0, s.length() - 1);
+		                	return s = s.substring(0, s.length() - 1);
 		                else
-		                	s = "";
-		                return s;
+		                	return null;
 		            }  
 		        });
 		 
@@ -93,6 +98,45 @@ public class OrderDaoImpl implements OrderDao {
 		{
 			return 1;
 		}
+	}
+	@Override
+	public List<Order> getOrder(final int invoiceid){
+		
+		String sql = "SELECT product.productid as pid, product.name as pname, product.brand as pbrand"
+				+ ", product.price as cost, product.category as pcategory, product.photo as picture, "
+				+ "orders.quantity as pquantity, orders.orderid as oid  FROM orders,product"
+				+ " where orders.productid = product.productid and orders.orderid= ? ";
+
+		 return this.jdbcTemplate.query(sql, new PreparedStatementSetter() {
+
+				public void setValues(PreparedStatement preparedStatement) throws SQLException {
+					preparedStatement.setInt(1, invoiceid);
+				}
+			},
+		         new ResultSetExtractor<List<Order>>() {
+
+		            @Override
+		            public List<Order> extractData(ResultSet rs)
+		                    throws SQLException, DataAccessException {
+		                List<Order> list = new ArrayList<Order>();  
+		                while(rs.next()){
+		                	Order order = new Order();
+		                    Item item = new Item();
+		                    Product prod = new Product();
+		                    prod.setProductid(rs.getInt("pid"));
+		                    prod.setName(rs.getString("pname"));
+		                    prod.setBrand(rs.getString("pbrand"));
+		                    prod.setPrice(rs.getInt("cost"));
+		                    prod.setCategory(rs.getString("pcategory"));
+		                    prod.setPhoto(rs.getString("picture"));
+		                    item.setProduct(prod);
+		                    item.setQuantity(rs.getInt("pquantity"));
+		                    order.setItem(item);
+		                    list.add(order);
+		                }
+		                return list;
+		            }  
+		        });
 	}
 	
 	@Override

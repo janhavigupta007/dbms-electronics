@@ -1,6 +1,7 @@
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/dao/OrderDaoImpl.java
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/dao/CartDao.java
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/controller/HomeController.java
+/home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/model/Invoice.java
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/model/Order.java
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/dao/CartDaoImpl.java
 /home/janhavi/eclipse-workspace/electronics/src/main/java/com/janhavi/model/Item.java

@@ -1,5 +1,6 @@
 com/janhavi/dao/InvoiceDaoImpl.class
 com/janhavi/dao/CartDaoImpl$2.class
+com/janhavi/dao/InvoiceDaoImpl$4.class
 com/janhavi/controller/CartController.class
 com/janhavi/dao/ProposalDaoImpl.class
 com/janhavi/dao/UserDaoImpl$5.class
@@ -15,6 +16,7 @@ com/janhavi/dao/ProductDaoImpl.class
 com/janhavi/model/Feedback.class
 com/janhavi/controller/RegistrationController.class
 com/janhavi/dao/CartDaoImpl$1.class
+com/janhavi/dao/OrderDaoImpl$6.class
 com/janhavi/dao/UserDaoImpl$4.class
 com/janhavi/dao/UserDaoImpl$1.class
 com/janhavi/dao/ProposalDaoImpl$1.class
@@ -32,10 +34,13 @@ com/janhavi/dao/InvoiceDaoImpl$2.class
 com/janhavi/dao/UserDaoImpl.class
 com/janhavi/dao/ProductDaoImpl$1.class
 com/janhavi/controller/SubmitOrderController.class
+com/janhavi/dao/InvoiceDaoImpl$5.class
 com/janhavi/dao/OrderDaoImpl$3.class
 com/janhavi/dao/UserDaoImpl$7.class
+com/janhavi/model/Invoice.class
 com/janhavi/controller/LoginController.class
 com/janhavi/dao/UserDaoImpl$6.class
+com/janhavi/dao/InvoiceDaoImpl$3.class
 com/janhavi/dao/OrderDaoImpl$4.class
 com/janhavi/model/Proposal.class
 com/janhavi/model/Customer.class
@@ -47,4 +52,5 @@ com/janhavi/controller/ProfileController.class
 com/janhavi/dao/ProposalDao.class
 com/janhavi/model/Cart.class
 com/janhavi/dao/OrderDaoImpl.class
+com/janhavi/dao/OrderDaoImpl$7.class
 com/janhavi/controller/ProposalController.class

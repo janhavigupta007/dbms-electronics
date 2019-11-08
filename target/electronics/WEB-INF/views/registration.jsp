@@ -8,38 +8,43 @@
 <title></title>
 </head>
 <body>
-
+<%@include file='/WEB-INF/views/navbar.jsp' %>	
+<div align="center">${msg}</div>
+	<section class="login py-5 border-top-1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 align-item-center">
+                <div class="border">
+                    <h3 class="bg-gray p-4">Register</h3>
 	<form:form action="/electronics/register" method="post" modelAttribute="user">
-	<table>
+	<fieldset class="p-4">
 		
-		<tr>
-		<td><form:label path="username">UserId</form:label></td>
-		<td><form:input type="text" path="username" /></td></tr>
+		<form:label path="username">UserId</form:label><br>
+		<form:input type="text" path="username" class="border p-3 w-100 my-2" required="true" maxlength="40"/><br>
 		
-		<tr>
-		<td><form:label path="password">Password</form:label></td>
-		<td>
-		<form:input type="password" path="password" /></td></tr>
+		<form:label path="password">Password</form:label><br>
 		
-		<tr>
-		<td><form:label path="name">Name</form:label></td>
-		<td><form:input type="text" path="name" /></td></tr>
+		<form:input type="password" path="password" class="border p-3 w-100 my-2" required="true" maxlength="40"/><br>
 		
-		<tr>
-		<td><form:label path="contact">Contact</form:label></td>
-		<td>
-		<form:input type="number" path="contact" /></td></tr>
+		<form:label path="name">Name</form:label><br>
+		<form:input type="text" path="name" class="border p-3 w-100 my-2" required="true" maxlength="40"/><br>
 		
-		<tr>
-		<td><form:label path="email">Email</form:label></td>
-		<td>
-		<form:input type="text" path="email" /></td></tr>
+		<form:label path="contact">Contact</form:label><br>
+		<form:input type="number" path="contact" class="border p-3 w-100 my-2" required="true" /><br>
+		
+	    <form:label path="email">Email</form:label><br>
+		<form:input type="email" path="email" class="border p-3 w-100 my-2" required="true" maxlength="40"/><br>
 	
-		 <tr><td><input type = "submit" name = "Customer" value="Register as Customer"/></td></tr>
-     <tr><td><input type = "submit" name = "Partner" value="Register as Partner"/></td></tr> 
-	</table>	
+		 <input type = "submit" name = "Customer" value="Register as Customer" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"/>
+     <input type = "submit" name = "Partner" value="Register as Partner" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"/>
+	</fieldset>	
 	</form:form>
-
-	${msg}
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+		
+	
 </body>
 </html>

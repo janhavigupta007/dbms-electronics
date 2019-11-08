@@ -163,6 +163,7 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public int updatePassword(String username, String password) {
+		
 		String sql = "update user set password = ? where username = ?";
 		try {
 			int counter = jdbcTemplate.update(sql, new Object[] { password, username});
@@ -172,6 +173,8 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 			return 0;
 		}
+		
+	
 		
 	}
 	

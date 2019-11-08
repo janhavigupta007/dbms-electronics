@@ -35,7 +35,7 @@ public class CartDaoImpl implements CartDao {
 	public List<Item> getCart(final String customerid){
 		
 		String sql = "SELECT product.productid as pid, product.name as pname, product.brand as pbrand"
-				+ ", product.price as cost, product.category as pcategory, "
+				+ ", product.price as cost, product.category as pcategory, product.photo as photo, "
 				+ "cart.quantity as pquantity FROM cart,product where cart.productid = product.productid and "
 				+ "cart.customerid = ? ";
 
@@ -59,6 +59,7 @@ public class CartDaoImpl implements CartDao {
 		                    prod.setBrand(rs.getString("pbrand"));
 		                    prod.setPrice(rs.getInt("cost"));
 		                    prod.setCategory(rs.getString("pcategory"));
+		                    prod.setPhoto(rs.getString("photo"));
 		                    item.setProduct(prod);
 		                    item.setQuantity(rs.getInt("pquantity"));
 		                    list.add(item);

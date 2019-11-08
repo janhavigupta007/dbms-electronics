@@ -1,49 +1,34 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page session="true"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<body>
-	<c:url value="/j_spring_security_logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
+<head>
+</head>
 
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h4>
-			Hello : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h4>
-	</c:if>
-	${msg }<br>
-	<sec:authorize access="hasRole('ROLE_CUSTOMER')">
-	<a href='/electronics/profileCustomer'>View and Update profile</a><br>
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_PARTNER')">
-	<a href='/electronics/profilePartner'>View and Update profile</a><br>
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_PARTNER') or hasRole('ROLE_CUSTOMER')">
-	<a href='/electronics/feedback'>Rate us!!!</a><br>
-	</sec:authorize>
-	<a href='/electronics/product'>Show Products</a>
-	<br>
-	<sec:authorize access="hasRole('ROLE_CUSTOMER')">
-	<a href='/electronics/order/show'>View my orders</a><br>
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_PARTNER') or hasRole('ROLE_CUSTOMER')">
-	<a href='/electronics/changepassword'>Change Password</a><br>
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<a href='/electronics/viewfeedback'>View all Feedbacks</a><br>
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<a href='/electronics/vieworder'>View all orders</a><br>
-	</sec:authorize>
+<body class="body-wrapper">
+<%@include file='/WEB-INF/views/navbar.jsp' %>	
+<section class="blog section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+			<c:forEach var="feedback" items="${feedbacks }">
+				<!-- Article 01 -->
+				<article>
+	<h3>Rating ${feedback.rating }/5</h3>
+	<ul class="list-inline">
+		<li class="list-inline-item">by ${feedback.username }</li>
+	</ul>
+	<!-- Post Description -->
+	<p class="">${feedback.description }</p>
+	<!-- Read more button -->
+	
+</article>		
+</c:forEach>	
+			</div>
+		</div>
+	</div>
+</section>
 </body>
+
 </html>
+

@@ -1,19 +1,19 @@
 package com.janhavi.model;
 
 public class Proposal{
-	private String partner;
+	private Partner partner;
 	private int price;
 	
 	public Proposal() {}
-	public Proposal(String partner, int price) {
+	public Proposal(Partner partner, int price) {
 		super();
 		this.partner = partner;
 		this.price = price;
 	}
-	public String getPartner() {
+	public Partner getPartner() {
 		return partner;
 	}
-	public void setPartner(String partner) {
+	public void setPartner(Partner partner) {
 		this.partner = partner;
 	}
 	public int getPrice() {

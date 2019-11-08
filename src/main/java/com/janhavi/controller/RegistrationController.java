@@ -36,14 +36,15 @@ public class RegistrationController {
 		ModelAndView mv = new ModelAndView("registration");
 
 		int counter = userDao.registerCustomer(user);
-		String otp = generateRandomotp();
-		userDao.addEntryOtp(user.getUsername(), otp);
-		SimpleMailMessage email = new SimpleMailMessage();
-	    email.setTo(userDao.getEmail(user.getUsername()));
-	    email.setSubject("Confirm your otp");
-	    email.setText("Your OTP is "+otp);
-	    mailSender.send(email);
+		
 		if (counter > 0) {
+			String otp = generateRandomotp();
+			userDao.addEntryOtp(user.getUsername(), otp);
+			SimpleMailMessage email = new SimpleMailMessage();
+		    email.setTo(userDao.getEmail(user.getUsername()));
+		    email.setSubject("Confirm your otp");
+		    email.setText("Your OTP is "+otp);
+		    mailSender.send(email);
 			mv.addObject("msg", "Customer registration successful. Please confirm your otp");
 		}
 		else {
@@ -58,15 +59,16 @@ public class RegistrationController {
 
 		ModelAndView mv = new ModelAndView("registration");
 		int counter = userDao.registerPartner(user);
-		String otp = generateRandomotp();
-		userDao.addEntryOtp(user.getUsername(), otp);
-		SimpleMailMessage email = new SimpleMailMessage();
-	    email.setTo(userDao.getEmail(user.getUsername()));
-	    email.setSubject("Confirm your otp");
-	    email.setText("Your OTP is "+otp);
-	    mailSender.send(email);
+		
 
 		if (counter > 0) {
+			String otp = generateRandomotp();
+			userDao.addEntryOtp(user.getUsername(), otp);
+			SimpleMailMessage email = new SimpleMailMessage();
+		    email.setTo(userDao.getEmail(user.getUsername()));
+		    email.setSubject("Confirm your otp");
+		    email.setText("Your OTP is "+otp);
+		    mailSender.send(email);
 			mv.addObject("msg", "Partner registration successful. Please confirm your otp");
 		}
 		else {

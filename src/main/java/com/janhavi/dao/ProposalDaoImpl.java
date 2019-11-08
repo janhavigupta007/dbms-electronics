@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
+import com.janhavi.model.Partner;
 import com.janhavi.model.Proposal;
 
 
@@ -33,7 +34,8 @@ public class ProposalDaoImpl implements ProposalDao {
 	
 	@Override
 	public List<Proposal> getPendingproposals(final int productid) {
-		String sql = "SELECT partnerid, price from partnerproposal where status = ? and productid = ?";
+		String sql = "SELECT partnerid, price from partnerproposal"
+				+ " where status = ? and productid = ?";
 
 		 return this.jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
@@ -50,7 +52,9 @@ public class ProposalDaoImpl implements ProposalDao {
 		                List<Proposal> list = new ArrayList<Proposal>();  
 		                while(rs.next()){
 		                    Proposal proposal = new Proposal();
-		                    proposal.setPartner(rs.getString("partnerid"));
+		                    Partner partner = new Partner();
+		                    partner.setPid(rs.getString("partnerid"));
+		                    proposal.setPartner(partner);
 		                    proposal.setPrice(rs.getInt("price"));
 		                    list.add(proposal);
 		                }

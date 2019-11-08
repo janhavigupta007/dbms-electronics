@@ -36,7 +36,7 @@ public class ProfileController{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		userDao.updateCustomer(userDetail.getUsername(), customer);
-		ModelAndView m = new ModelAndView("welcome");
+		ModelAndView m = new ModelAndView("home");
 		m.addObject("msg","Profile updated");
 		return m;
 	}
@@ -56,7 +56,7 @@ public class ProfileController{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		userDao.updatePartner(userDetail.getUsername(), partner);
-		ModelAndView m = new ModelAndView("welcome");
+		ModelAndView m = new ModelAndView("home");
 		m.addObject("msg","Profile updated");
 		return m;
 	}
@@ -76,7 +76,7 @@ public class ProfileController{
 			@RequestParam("confirmpassword")String confirmpassword) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		ModelAndView m = new ModelAndView("welcome");
+		ModelAndView m = new ModelAndView("home");
 		if(userDao.getPassword(userDetail.getUsername()).equalsIgnoreCase(oldpassword)
 				&& newpassword.equalsIgnoreCase(confirmpassword)) {
 			userDao.updatePassword(userDetail.getUsername(), newpassword);

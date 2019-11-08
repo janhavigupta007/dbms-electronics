@@ -58,7 +58,7 @@ public class HomeController {
 	public ModelAndView feedback(@ModelAttribute("feedback")Feedback feedback) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		ModelAndView model = new ModelAndView("welcome");
+		ModelAndView model = new ModelAndView("home");
 		userDao.feedback(userDetail.getUsername(), feedback);
 		model.addObject("msg","Feedback added successfully\n Thanks for rating!!!");
 		return model;
@@ -66,6 +66,11 @@ public class HomeController {
 	
 	@RequestMapping(value = "/viewfeedback")
 	public ModelAndView feedbacks() {
+		if(userDao.getFeedbacks().isEmpty()) {
+			ModelAndView model = new ModelAndView("home");
+			model.addObject("msg","No feedbacks to display");
+			return model;
+		}
 		ModelAndView model = new ModelAndView("viewfeedback");
 		model.addObject("feedbacks",userDao.getFeedbacks());
 		return model;

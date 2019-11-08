@@ -29,7 +29,7 @@ public class LoginController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Invalid username and password!");
+			model.addObject("error", "Invalid username or password OR User not verified");
 		}
 
 		if (logout != null) {
@@ -54,13 +54,13 @@ public class LoginController {
 		ModelAndView m = new ModelAndView("login");
 		String password = generateString();
 		int c = userDao.updatePassword(user.getUsername(), password);
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(userDao.getEmail(user.getUsername()));
-		email.setSubject("Password Reset");
-		email.setText("Your new password is"+password);
-		mailSender.send(email);
 		if(c>0) {
-			m.addObject("mesg","reset mail sent");
+			SimpleMailMessage email = new SimpleMailMessage();
+			email.setTo(userDao.getEmail(user.getUsername()));
+			email.setSubject("Password Reset");
+			email.setText("Your new password is"+password);
+			mailSender.send(email);
+			m.addObject("mesg","Reset Mail sent");
 		}
 		else
 		{
@@ -85,7 +85,7 @@ public class LoginController {
 			m.addObject("mesg","OTP confirmed");
 		}
 		else {
-		m.addObject("mesg","Invalid OTP");
+		m.addObject("mesg","Couldn't verify! Try again");
 		}
 		return m;
 	}

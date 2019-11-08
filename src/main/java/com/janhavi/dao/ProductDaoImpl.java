@@ -49,7 +49,7 @@ public class ProductDaoImpl implements ProductDao {
 		                    prod.setBrand(rs.getString("brand"));
 		                    prod.setPrice(rs.getInt("price"));
 		                    prod.setCategory(rs.getString("category"));
-		                    prod.setQuantity(rs.getInt("quantity"));
+		                    prod.setPhoto(rs.getString("photo"));
 		                    list.add(prod);
 		                }
 		                return list;
@@ -60,12 +60,12 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int addProduct(Product product) {
 		
-		String sql = "INSERT INTO product( name, brand, price, category, quantity) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO product( name, brand, price, category, photo) VALUES(?,?,?,?,?)";
 		
 		try {
 			
 			int counter = jdbcTemplate.update(sql, new Object[] { product.getName(),
-					product.getBrand(), product.getPrice(), product.getCategory(), product.getQuantity()});
+					product.getBrand(), product.getPrice(), product.getCategory(), product.getPhoto()});
 			return counter;
 
 		} catch (Exception e) {
@@ -93,8 +93,14 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public int addProposal(String partnerid, int productid, int price) {
+		if(checkProductid(productid)==0) {
+			return -2;
+		}
+		else if(checkProductidAndPartner(productid, partnerid)>=0) {
+			return -1;
+		}
 		
-		String sql = "INSERT INTO partnerproposal( partnerid, productid, price, status) VALUES(?,?,?)";
+		String sql = "INSERT INTO partnerproposal( partnerid, productid, price, status) VALUES(?,?,?,?)";
 		
 		try {
 			
@@ -104,6 +110,28 @@ public class ProductDaoImpl implements ProductDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	private int checkProductid(int productid) {
+		String sql = "SELECT productid from product where productid = ?";
+		try {
+		 return jdbcTemplate.queryForObject(sql,new Object[]{productid},int.class);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	private int checkProductidAndPartner(int productid, String partnerid) {
+		String sql = "SELECT productid from partnerproposal where productid = ? and partnerid=?";
+		try {
+		 return jdbcTemplate.queryForObject(sql,new Object[]{productid, partnerid},int.class);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
 	}
 }

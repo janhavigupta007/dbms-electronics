@@ -1,5 +1,7 @@
 package com.janhavi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.janhavi.dao.CartDao;
 import com.janhavi.dao.ProductDao;
+import com.janhavi.model.Item;
 
 @Controller
 public class CartController {
@@ -22,13 +25,22 @@ public class CartController {
 	private CartDao cartDao;
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView index() {
-		ModelAndView m = new ModelAndView("cart");
+		
 		//check if user is login
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			m.addObject("cart",cartDao.getCart(userDetail.getUsername()));
-	
-		return m;
+			List<Item> cart = cartDao.getCart(userDetail.getUsername());
+			if(cart.isEmpty()) {
+				ModelAndView m = new ModelAndView("home");
+				m.addObject("msg","No items in cart");
+				return m;
+			}
+			else
+			{	
+				ModelAndView m = new ModelAndView("cart");
+				m.addObject("cart",cartDao.getCart(userDetail.getUsername()));
+				return m;
+			}
 	}
 
 	@RequestMapping(value = "/cart/buy/{productid}", method = RequestMethod.GET)

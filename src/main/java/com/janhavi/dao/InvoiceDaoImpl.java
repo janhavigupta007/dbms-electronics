@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
+import com.janhavi.model.Invoice;
 import com.janhavi.model.Item;
 import com.janhavi.model.Order;
 import com.janhavi.model.Product;
@@ -87,6 +88,61 @@ public class InvoiceDaoImpl implements InvoiceDao {
 		                    item.setProduct(prod);
 		                    item.setQuantity(rs.getInt("pquantity"));
 		                    list.add(item);
+		                }
+		                return list;
+		            }  
+		        });
+		 
+	}
+	
+	@Override
+	public List<Invoice> getInvoice(final String customerid) {
+		String sql = "select * from invoice where customerid = ?";
+
+		 return this.jdbcTemplate.query(sql, new PreparedStatementSetter() {
+
+				public void setValues(PreparedStatement preparedStatement) throws SQLException {
+					preparedStatement.setString(1, customerid);
+				}
+			},
+		         new ResultSetExtractor<List<Invoice>>() {
+
+		            @Override
+		            public List<Invoice> extractData(ResultSet rs)
+		                    throws SQLException, DataAccessException {
+		                List<Invoice> list = new ArrayList<Invoice>();  
+		                while(rs.next()){
+		                    
+		                    Invoice invoice = new Invoice();
+		                    invoice.setInvoiceid(rs.getInt("id"));
+		                    invoice.setDateofissue(rs.getString("DateOfIssue"));
+		                    invoice.setPaymentmethod(rs.getString("paymentmethod"));
+		                    list.add(invoice);
+		                }
+		                return list;
+		            }  
+		        });
+		 
+	}
+	
+	@Override
+	public List<Invoice> getAllInvoices() {
+		String sql = "select * from invoice";
+
+		 return this.jdbcTemplate.query(sql,
+		         new ResultSetExtractor<List<Invoice>>() {
+
+		            @Override
+		            public List<Invoice> extractData(ResultSet rs)
+		                    throws SQLException, DataAccessException {
+		                List<Invoice> list = new ArrayList<Invoice>();  
+		                while(rs.next()){
+		                    
+		                    Invoice invoice = new Invoice();
+		                    invoice.setInvoiceid(rs.getInt("id"));
+		                    invoice.setDateofissue(rs.getString("DateOfIssue"));
+		                    invoice.setPaymentmethod(rs.getString("paymentmethod"));
+		                    list.add(invoice);
 		                }
 		                return list;
 		            }  
